@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Information</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <h1>PDF Information</h1>
+  <table>
+    <tr>
+      <th>File Name</th>
+      <th>Date of Creation</th>
+      <th>Abstract</th>
+    </tr>
+    {% for item in information %}
+    <tr>
+      <td>{{ item[0] }}</td>
+      <td>{{ item[1] }}</td>
+      <td>{{ item[2] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>
+
+
+
+
