@@ -1,5 +1,5 @@
 import os
-
+import shutil
 from flask import Flask, render_template, request, redirect, url_for
 import zipfile
 import io
@@ -54,6 +54,7 @@ def extract_information(file_path, search_term=None):
 
 
 @app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     # Get the search term from the query parameter
     search_term = request.args.get('search')
@@ -71,6 +72,15 @@ def index():
             information = extract_information('/tmp/' + file_path, search_term)
             # Render the HTML template with the information and search term
             return render_template('index.html', information=information, search_term=search_term)
+    # Check if the clear button has been clicked
+    elif request.method == 'GET' and 'clear' in request.args:
+        # Clear all files from the temporary directory
+        shutil.rmtree('/tmp')
+        os.mkdir('/tmp')
+        # Render the HTML template for uploading a file
+        return render_template('upload.html')
+    # Render the HTML template for uploading a file
+    return render_template('upload.html')
     # Render the HTML template for uploading a file
     return render_template('upload.html')
 if __name__ == '__main__':
