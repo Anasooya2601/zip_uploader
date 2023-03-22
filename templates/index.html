@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Information</title>
+  <title>PDF Table</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+ 
+
 </head>
 <body>
   <h1>PDF Information</h1>
+  <form id="search-form" enctype="multipart/form-data" method="post">
+    <label for="search">Search:</label>
+    <input type="text" id="search" name="search">
+    <button type="submit">Submit</button>
+  </form>
+  <form id="upload-form" enctype="multipart/form-data" method="post">
+    <input type="file" name="file" id="file">
+    <button type="submit">Upload</button>
+  </form>
   <table>
     <tr>
       <th>File Name</th>
@@ -20,8 +31,27 @@
     </tr>
     {% endfor %}
   </table>
+  <script>
+    const searchForm = document.getElementById('search-form');
+    const searchInput = document.getElementById('search');
+    const tableRows = document.getElementsByTagName('tr');
+    searchForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const searchTerm = searchInput.value;
+      for (let i = 1; i < tableRows.length; i++) {
+        const abstract = tableRows[i].getElementsByTagName('td')[2].innerText;
+        if (!abstract.includes(searchTerm)) {
+          tableRows[i].style.display = 'none';
+        } else {
+          tableRows[i].style.display = '';
+        }
+      }
+    });
+  </script>
 </body>
 </html>
+
+
 
 
 

@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Upload a Zip File</title>
+  <title>Upload Files</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-  <h1>Upload a Zip File</h1>
-  <form method="POST" enctype="multipart/form-data">
+  <h1>Upload Files</h1>
+  <form method="POST" action="/" enctype="multipart/form-data">
+    <input type="hidden" name="existing_information" value="{{ existing_information }}">
     <input type="file" name="file">
-    <input type="submit" value="Upload">
+    <br><br>
+    <button type="submit">Upload File</button>
+  </form>
+    
   </form>
 </body>
 </html>
+
 
