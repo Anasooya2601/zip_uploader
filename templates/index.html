@@ -1,59 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PDF Table</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>File Uploader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+        form {
+            width: 50%;
+            margin: 50px auto;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-  <h1>PDF Information</h1>
-  <form id="search-form" enctype="multipart/form-data" method="post">
-    <label for="search">Search:</label>
-    <input type="text" id="search" name="search">
-    <button type="submit">Submit</button>
-  </form>
-  <form id="upload-form" enctype="multipart/form-data" method="post">
-    <input type="file" name="file" id="file">
-    <button type="submit">Upload</button>
-    <button id="clear-button" type="button">Clear</button>
-  </form>
-  <table>
-    <tr>
-      <th>File Name</th>
-      <th>Date of Creation</th>
-      <th>Abstract</th>
-    </tr>
-    {% for item in information %}
-    <tr>
-      <td>{{ item[0] }}</td>
-      <td>{{ item[1] }}</td>
-      <td>{{ item[2] }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-  <script>
-    const searchForm = document.getElementById('search-form');
-    const searchInput = document.getElementById('search');
-    const tableRows = document.getElementsByTagName('tr');
-    const clearButton = document.getElementById('clear-button');
-    const table = document.querySelector('table');
-    searchForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const searchTerm = searchInput.value;
-      for (let i = 1; i < tableRows.length; i++) {
-        const abstract = tableRows[i].getElementsByTagName('td')[2].innerText;
-        if (!abstract.includes(searchTerm)) {
-          tableRows[i].style.display = 'none';
-        } else {
-          tableRows[i].style.display = '';
-        }
-      }
-    });
-    clearButton.addEventListener('click', (e) => {
-      for (let i = table.rows.length - 1; i > 0; i--) {
-        table.deleteRow(i);
-      }
-    });
-  </script>
+    <h1>File Uploader</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" multiple>
+        <br>
+        <input type="submit" value="Upload">
+    </form>
 </body>
 </html>
 
